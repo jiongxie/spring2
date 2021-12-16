@@ -1,0 +1,164 @@
+.head{
+     text-align:center;
+    }
+    
+    .list{
+      margin:0 auto;
+      align:center;
+      width:100%;
+      padding:10px;
+    }
+    
+    .tablehead{
+      background-color:#ccc;
+      text-align:center;
+      height:50px;
+      font-size:20px;
+    }
+    
+    .tablebody{
+      text-align:center;
+    }
+    
+    .thumb{
+      width:150px;
+    }
+    .inputBox{
+      width:95px;   
+      border:0px; 
+      outline:none;
+    }
+    
+    .numBox{
+      width:80px;
+    }
+    .lastTitle{
+     clear:both;
+     width:80%;
+     background-color:#fff;
+     height:150px;
+     padding:3% 15% 10% 15%;
+     margin:0 auto;
+    }
+    .last{
+     clear:both;
+     width:80%;
+     background-color:#ddd;
+     height:150px;
+     padding:3% 15% 10% 15%;
+     margin:0 auto;
+    }
+    .inline{
+      display:inline;    
+      float:left;
+      text-align:center;
+    }
+    
+    .ll{
+      margin-left:10px;
+    }
+
+    .box{
+      width:150px;
+      border:0px;
+      background-color:#ddd;
+      text-align:center;
+      outline:none;
+    }
+    
+        
+    .btngroup{
+      clear:both;
+      float:left;
+      margin:0 auto;
+    }
+    .ft{
+      font-size:25px;
+    }
+    
+    .inputFont{
+      font-size:30px;
+    
+    }    
+    
+    /* 핸드폰사이즈 */
+    @media screen and (max-width: 750px) {
+      .tablehead{
+        height:30px;
+        font-size:13px;
+      } 
+      .thumb{
+        width:80px;
+      }    
+         
+      .last{
+       width:100%;
+       height:150px;
+       padding:10% 5% 10% 5%;
+      }   
+
+      .box{
+        width:82px;
+      }
+      
+      .ft{
+        font-size:15px;
+      }
+      
+      .math{
+        width:20px;
+      }
+      
+      .inputFont{
+        font-size:20px;
+      
+      }      
+
+    }  
+    /* 중간 */
+    @media screen and (min-width:751px) and (max-width:1000px) {
+      .last{
+       width:90%;
+       height:150px;
+       padding:5% 20% 10% 20%;
+      } 
+        
+      .thumb{
+        width:100px;
+      }          
+
+      .box{
+        width:85px;
+      }
+
+      .ft{
+        font-size:18px;
+      }
+
+      .inputFont{
+        font-size:20px;
+      }      
+    }     
+
+
+    /* 태블릿 */
+    @media screen and (min-width:1001px) and (max-width:1200px) {
+      .last{
+       width:90%;
+       height:150px;
+       padding:3% 18% 10% 18%;
+      }   
+
+      .box{
+        width:130px;
+      }
+
+
+      .ft{
+        font-size:20px;
+      }
+
+      .inputFont{
+        font-size:25px;
+      }      
+    }   

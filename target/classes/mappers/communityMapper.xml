@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.cjs200805.dao.CommunityDao">
+	
+	<select id="getComList" resultType="com.spring.cjs200805.vo.CommunityVo">
+		select * from community order by idx desc;
+	</select>
+	
+	<insert id="setComInput">
+		insert into community values (default, #{vo.title}, #{vo.name}, #{vo.pwd});
+	</insert>
+	
+	<delete id="setComDeleteGet">
+		delete from community where idx = #{vo.idx};
+	</delete>
+
+	<delete id="setComNDeleteGet">
+		delete from community where idx = #{vo.idx};
+	</delete>
+
+	
+	<select id="getComUpdateGet" resultType="com.spring.cjs200805.vo.CommunityVo">
+		select * from community where idx = #{idx};
+	</select>
+
+	<select id="getComContentGet" resultType="com.spring.cjs200805.vo.CommunityVo">
+		select * from community where idx = #{idx};
+	</select>
+
+	
+	<select id="passwordCheck" resultType="com.spring.cjs200805.vo.CommunityVo">
+		select * from community where idx = #{idx} and pwd = #{pwd};
+	</select>
+	
+	<update id="setComUpdatePost">
+		update community set title = #{vo.title}, name = #{vo.name} where idx = #{vo.idx};
+	</update>
+	
+</mapper>

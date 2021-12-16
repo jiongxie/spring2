@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.cjs200805.dao.StudyDao">
+	<select id="getProduct1" resultType="com.spring.cjs200805.vo.Goods1Vo">
+  	select * from goods1 order by product1;
+  </select>
+  
+  <select id="getProduct2"  resultType="com.spring.cjs200805.vo.Goods2Vo">
+    select * from goods2 where product1 = #{product1} order by product2;
+  </select>
+  
+  <select id="getProduct3"  resultType="com.spring.cjs200805.vo.Goods3Vo">
+    select * from goods3 where product1=#{product1} and product2=#{product2} order by product3;
+  </select>
+  
+  <insert id="dbProductInput">
+    insert into dbProduct values (default,#{vo.product3},#{vo.product},#{vo.detail},#{vo.mainprice},#{vo.fname},#{vo.rfname},#{vo.content});
+  </insert>
+  
+  <select id="getProductName" resultType="String">
+    select product from dbProduct order by product;
+  </select>
+  
+  <select id="getProductIdx" resultType="int">
+    select idx from dbProduct where product = #{product};
+  </select>
+  
+  <insert id="dbOptionInput">
+    insert into dbOption values (default,#{vo.productIdx},#{vo.optionName},#{vo.optionPrice});
+  </insert>
+  
+  <select id="getDbShopList" resultType="com.spring.cjs200805.vo.DbProductVo">
+    <if test="gubun == '전체'">
+	    select * from dbProduct order by idx desc;
+    </if>
+    <if test="gubun != '전체'">
+	    select * from dbProduct where product3 = #{gubun};
+    </if>
+  </select>
+  
+  <select id="getDbShopProduct" resultType="com.spring.cjs200805.vo.DbProductVo">
+    select * from dbProduct where idx = #{idx};
+  </select>
+  
+  <select id="getDbShopOption" resultType="com.spring.cjs200805.vo.DbOptionVo">
+    select * from dbOption where idx = #{idx} order by idx;
+  </select>
+  
+  <select id="dbCartListProductOptionSearch" resultType="com.spring.cjs200805.vo.DbCartListVo">
+    select * from dbCartList where product=#{product} and optionName=#{optionName};
+  </select>
+  
+  <update id="dbShopCartUpdate">
+    update dbCartList set optionNum=#{vo.optionNum},totalPrice=totalPrice+#{vo.totalPrice} where product=#{vo.product} and optionName=#{vo.optionName};
+  </update>
+  
+  <insert id="dbShopCartInput">
+    insert into dbCartList values (default,default,#{vo.mid},#{vo.productIdx},#{vo.product},#{vo.mainPrice},#{vo.thumbImg},#{vo.optionIdx},#{vo.optionName},#{vo.optionPrice},#{vo.optionNum},#{vo.totalPrice});
+  </insert>
+  
+  <select id="getDbCartList" resultType="com.spring.cjs200805.vo.DbCartListVo">
+    select * from dbCartList where mid = #{mid} order by idx;
+  </select>
+  
+  <select id="getCartIdx" resultType="com.spring.cjs200805.vo.DbCartListVo">
+    select * from dbCartList where idx = #{idx};
+  </select>
+  
+  <select id="getOrderMaxIdx" resultType="com.spring.cjs200805.vo.DbOrderVo">
+    select max(idx) as maxIdx from dbOrder;
+  </select>
+  
+  <delete id="dbCartDel">
+    delete from dbCartList where idx = #{idx};
+  </delete>
+  
+  <insert id="setDbOrder">
+    insert into dbOrder values (default,#{vo.orderIdx},#{vo.mid},#{vo.productIdx},default,#{vo.product},#{vo.mainPrice},#{vo.thumbImg},#{vo.optionName},#{vo.optionPrice},#{vo.optionNum},#{vo.totalPrice});
+  </insert>
+  
+  <delete id="delDbCartList">
+    delete from dbCartList where idx = #{cartIdx};
+  </delete>
+  
+  <insert id="setDbBaesong">
+    insert into dbBaesong values (default,#{bVo.orderIdx},#{bVo.orderTotalPrice},#{bVo.mid},#{bVo.name},#{bVo.address},#{bVo.tel},#{bVo.message},#{bVo.payment},#{bVo.payMethod},default);
+  </insert>
+  
+  <select id="getBaesong" resultType="com.spring.cjs200805.vo.DbBaesongVo">
+    select * from dbBaesong where mid = #{mid};
+  </select>
+  
+  <select id="getOrderBaesong" resultType="com.spring.cjs200805.vo.DbBaesongVo">
+    select * from dbBaesong where orderIdx = #{orderIdx};
+  </select>
+  
+  <select id="getDbMyOrder" resultType="com.spring.cjs200805.vo.DbBaesongVo">
+    select a.*,b.* from dbOrder a join dbBaesong b using(orderIdx) where b.mid=#{mid};
+  </select>
+  
+  <select id="getSubTitle" resultType="com.spring.cjs200805.vo.DbProductVo">
+    select product3 from dbProduct group by product3 order by product3;
+  </select>
+  
+  <select id="getOrderStatus" resultType="com.spring.cjs200805.vo.DbBaesongVo">
+    <if test="orderStatus == '전체'">
+      select a.*,b.* from dbOrder a join dbBaesong b using(orderIdx) where b.mid=#{mid};
+    </if>
+    <if test="orderStatus != '전체'">
+      select a.*,b.* from dbOrder a join dbBaesong b using(orderIdx) where b.mid=#{mid} and b.orderStatus=#{orderStatus};
+    </if>
+  </select>
+
+  <select id="adminOrderStatus" resultType="com.spring.cjs200805.vo.DbBaesongVo">
+    <if test="orderStatus == '전체'">
+      select a.*,b.* from dbOrder a join dbBaesong b using(orderIdx) order by a.idx desc;
+    </if>
+    <if test="orderStatus != '전체'">
+      select a.*,b.* from dbOrder a join dbBaesong b using(orderIdx) where b.orderStatus=#{orderStatus} order by a.idx desc;
+    </if>
+  </select>
+
+  
+  <update id="setOrderStatusUpdate">
+    update dbBaesong set orderStatus = #{orderStatus} where orderIdx = #{orderIdx};
+  </update>
+</mapper>

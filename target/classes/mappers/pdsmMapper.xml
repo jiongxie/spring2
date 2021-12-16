@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.cjs200805.dao.PdsmDao">
+  <select id="totRecCnt" resultType="int">
+    <if test="partValue == '전체'">
+	    select count(*) from pdsm2;
+    </if>
+    <if test="partValue != '전체'">
+	    select count(*) from pdsm2 where part = #{partValue};
+    </if>
+  </select>
+  
+  <select id="pmList" resultType="com.spring.cjs200805.vo.PdsmVo">
+    <if test="part == '전체'">
+    	select * from pdsm2 order by idx desc limit #{startNo},#{pageSize};
+    </if>
+    <if test="part != '전체'">
+    	select * from pdsm2 where part = #{part} order by idx desc limit #{startNo},#{pageSize};
+    </if>
+  </select>
+  
+  <insert id="pmInput">
+    insert into pdsm2 values (default,#{vo.mid},#{vo.nickname},#{vo.fname},#{vo.rfname},#{vo.title},#{vo.part},#{vo.pwd},default,#{vo.fsize},0,#{vo.content});
+  </insert>
+  
+    <update id="setDownCheck">
+	    update pdsm2 set downnum = downnum+1 where idx = #{idx};
+	  </update>
+	  
+	  <delete id="setPmDeleteGet">
+	  	delete from pdsm2 where idx = #{idx};
+	  </delete>
+	  
+</mapper>
